@@ -10,15 +10,21 @@
 
 using namespace std;
 
+//
+// id[0]: id_subs
+// id[1]: id_page_faults
+// id[2]: id_ocupacao_atual
+// id[3]: id_tab
+//
 int main(int argc, char *argv[]){
-    int qtd, proc;
+    int qtd, proc, ids[4];
     ifstream processo;
     pid_t pid;
 
     cout << "Informe quantos processos irao executar concorrentemente" << endl;
     cin >> qtd;
 
-    inicializaTab(argv[0]);
+    inicializaTab(argv[0], ids);
     for(proc = 0; proc < qtd; proc++){
         pid = fork();
 
@@ -38,7 +44,7 @@ int main(int argc, char *argv[]){
 
         nome << "pag_processo_" << proc;
         processo.open(nome.str().c_str());
-        defineProcesso(proc);
+        defineProcesso(proc, ids);
 
         if(!processo.is_open()){
             cout << "Erro ao abrir o arquivo " << nome.str() << "Encerrando..." << endl;

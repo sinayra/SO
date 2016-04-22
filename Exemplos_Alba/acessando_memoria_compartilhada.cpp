@@ -69,7 +69,7 @@ int main(int argc, char* argv[]){
     sleep(5);
     pshm = (int *)shmat(idshm, (char*)0, 0);
     cout << "Sou o pai e terminei execucao lendo " << *pshm << " da memoria compartilhada" << endl;
-    shmdt(pshm);
+    shmdt(idshm);
 
     return 0;
 }

@@ -7,6 +7,7 @@
 //Includes de chamadas de sistema
 #include <sys/time.h>
 #include <sys/ipc.h>
+#include <sys/shm.h>
 #include <unistd.h>
 
 #define MAX_OCUPACAO 9
@@ -30,10 +31,10 @@ typedef struct{
 }frameAux;
 
 ///Inicializa tab com frames livres
-void inicializaTab(char *path);
+void inicializaTab(char *path, int ids[4]);
 
 ///Seta variável global proc
-void defineProcesso(int processo);
+void defineProcesso(int processo, int ids[4]);
 
 ///Alocação de Páginas
 //reserva um pageframe para página i
