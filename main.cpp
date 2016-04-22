@@ -8,15 +8,14 @@
 using namespace std;
 
 int main(){
-    int qtd, proc;
+    int qtd;
     ifstream processo;
-
-    inicializaTab();
 
     cout << "Informe quantos processos irao executar concorrentemente" << endl;
     cin >> qtd;
     qtd--;
-    proc = qtd;
+
+    inicializaTab(qtd);
 
     while(qtd >= 0){
         string linha;
@@ -44,7 +43,7 @@ int main(){
         qtd--;
     }
 
-    shutdown(proc);
+    shutdown();
 
     return 0;
 }

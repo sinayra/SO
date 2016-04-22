@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include <string>
 #include <cstdlib>
 #include <ctime>
-
+#include <vector>
+#include <algorithm>
 //Includes de chamadas de sistema
 #include <sys/types.h>
 #include <sys/time.h>
@@ -23,8 +23,13 @@ typedef struct{
     bool livre;
 }frame;
 
+typedef struct{
+    long int tempo;
+    short int index;
+}frameAux;
+
 ///Inicializa tab com frames livres
-void inicializaTab();
+void inicializaTab(int processo);
 
 ///Alocação de Páginas
 //reserva um pageframe para página i
@@ -41,7 +46,7 @@ void substitui(short int i);
 //  b) Número total de page faults
 //  c) Número de substituições
 //  d) Configuração final da tabela de páginas
-void shutdown(int proc);
+void shutdown();
 
 ///Reserva uma page frame para página i
 void referencia_pagina(short int i);
