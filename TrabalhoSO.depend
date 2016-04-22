@@ -2,26 +2,27 @@
 1460727568 source:/home/secreto/Desktop/SO/Exemplos_Alba/prog1.c
 	<stdio.h>
 
-1461325338 source:/home/secreto/Desktop/SO/pagina.cpp
+1461336241 source:/home/secreto/Desktop/SO/pagina.cpp
 	"pagina.h"
 
-1461325373 /home/secreto/Desktop/SO/pagina.h
+1461336360 /home/secreto/Desktop/SO/pagina.h
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<vector>
 	<algorithm>
-	<sys/types.h>
-	<sys/time.h>
+	<sys/ipc.h>
 	<unistd.h>
 
-1461325359 source:/home/secreto/Desktop/SO/main.cpp
+1461336242 source:/home/secreto/Desktop/SO/main.cpp
 	"pagina.h"
 	"utils.h"
 	<fstream>
 	<sstream>
 	<iostream>
 	<string>
+	<unistd.h>
+	<sys/wait.h>
 
 1461158261 /home/secreto/Desktop/SO/utils.h
 	<string>

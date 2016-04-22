@@ -1,24 +1,32 @@
 #include "pagina.h"
 
-vector<frame> tab(NUMERO_FRAMES);
-short int ocupacao_atual = 0;
-short int page_fault = 0;
-short int subs = 0;
-int proc;
+//Memória compartilhada
+frame tab[NUMERO_FRAMES];
+int ocupacao_atual = 0;
+int page_fault = 0;
+int subs = 0;
 
-void limpaFrame(short int i){
+//globais do processo atual
+int proc;
+int proc_page_fault = 0;
+int *mc_subs, *mc_page_faults, *mc_ocupacao_atual;
+frame *mc_tab;
+
+void limpaFrame(int i){
     tab[i].livre = true;
     tab[i].pagina = -1;
     tab[i].processo = -1;
     tab[i].tempo = -1;
+    tab[i].pid = -1;
 }
 
-void preencheFrame(short int i, int pagina){
+void preencheFrame(int i, int pagina){
     struct timeval t;
 
     tab[i].livre = false;
     tab[i].pagina = pagina;
     tab[i].processo = proc;
+    tab[i].pid = getpid();
 
     gettimeofday(&t, NULL);
     tab[i].tempo = t.tv_sec * 1000000L + t.tv_usec;
@@ -29,22 +37,33 @@ bool ordenaFrame(frameAux v1, frameAux v2){
     return v1.tempo < v2.tempo;
 }
 
-int getPagina(short int i){
+int getPagina(int i){
     for(int j = 0; j < NUMERO_FRAMES; j++){
-        if(tab[j].pagina == i && tab[j].processo == proc)
+        if(tab[j].processo == proc && tab[j].pagina == i)
             return j;
     }
     return -1;
 }
 
-void inicializaTab(int processo){
-    for(int i = 0; i < NUMERO_FRAMES; i++)
-        limpaFrame(i);
-
+void defineProcesso(int processo){
     proc = processo;
 }
 
-void aloca(short int i){
+void inicializaTab(char *path){
+    key_t k;
+    int id_subs, id_page_fault, id_ocupacao_total, id_tab;
+
+    k = ftok(path, 'P');
+    if(k < 0){
+        cout << "Erro com ftok()" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    for(int i = 0; i < NUMERO_FRAMES; i++)
+        limpaFrame(i);
+}
+
+void aloca(int i){
     int j;
     int pag = getPagina(i);
 
@@ -58,6 +77,7 @@ void aloca(short int i){
             }while(!tab[j].livre);
 
             preencheFrame(j, i);
+            proc_page_fault++;
             page_fault++;
             ocupacao_atual++;
         }
@@ -67,13 +87,13 @@ void aloca(short int i){
     }
 }
 
-void substitui(short int i){
+void substitui(int i){
     int j;
     vector<frameAux> v(NUMERO_FRAMES);
 
     subs++;
 
-    for(short int i = 0; i < NUMERO_FRAMES; i++)
+    for(int i = 0; i < NUMERO_FRAMES; i++)
         v[i] = {tab[i].tempo, i};
 
     sort(v.begin(), v.end(), ordenaFrame);
@@ -90,13 +110,12 @@ void substitui(short int i){
     }while(!tab[j].livre);
 
     preencheFrame(j, i);
+    proc_page_fault++;
     page_fault++;
     ocupacao_atual++;
 }
 
-void shutdown(){
-    for(int i = 0; i <= proc; i++)
-        cout << "Número de page faults do processo " << proc << ": " << page_fault << endl;
+void shutdownFinal(){
     cout << "Número de page faults total: " << page_fault << endl;
     cout << "Número de execuções do processo de substituição: " << subs << endl;
     cout << "Configuração final da memória:" << endl;
@@ -110,6 +129,14 @@ void shutdown(){
     }
 }
 
-void referencia_pagina(short int i){
+void shutdown(int pid){
+
+    if(pid == 0)
+        cout << "Número de page faults do processo " << proc << ": " << proc_page_fault << endl;
+    else
+        shutdownFinal();
+}
+
+void referencia_pagina(int i){
     aloca(i);
 }

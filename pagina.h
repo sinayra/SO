@@ -5,8 +5,8 @@
 #include <vector>
 #include <algorithm>
 //Includes de chamadas de sistema
-#include <sys/types.h>
 #include <sys/time.h>
+#include <sys/ipc.h>
 #include <unistd.h>
 
 #define MAX_OCUPACAO 9
@@ -17,28 +17,32 @@ using namespace std;
 ///Frame
 //linha da tabela de páginas
 typedef struct{
-    short int pagina;
+    int pagina;
     long int tempo;
-    short int processo;
+    int processo;
+    int pid;
     bool livre;
 }frame;
 
 typedef struct{
     long int tempo;
-    short int index;
+    int index;
 }frameAux;
 
 ///Inicializa tab com frames livres
-void inicializaTab(int processo);
+void inicializaTab(char *path);
+
+///Seta variável global proc
+void defineProcesso(int processo);
 
 ///Alocação de Páginas
 //reserva um pageframe para página i
 //Se página não estiver alocada, escolhe aleatoriamente frames livres e ocorre page fault
-void aloca(short int i);
+void aloca(int i);
 
 ///Substituição de Páginas
 //Caso não há frames livres, executa LRU
-void substitui(short int i);
+void substitui(int i);
 
 ///Terminar execução dos processos
 // Imprime na tela
@@ -46,7 +50,7 @@ void substitui(short int i);
 //  b) Número total de page faults
 //  c) Número de substituições
 //  d) Configuração final da tabela de páginas
-void shutdown();
+void shutdown(int pid);
 
 ///Reserva uma page frame para página i
-void referencia_pagina(short int i);
+void referencia_pagina(int i);

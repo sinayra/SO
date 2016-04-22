@@ -5,24 +5,40 @@
 #include <iostream>
 #include <string>
 
+#include <unistd.h>
+#include <sys/wait.h>
+
 using namespace std;
 
-int main(){
-    int qtd;
+int main(int argc, char *argv[]){
+    int qtd, proc;
     ifstream processo;
+    pid_t pid;
 
     cout << "Informe quantos processos irao executar concorrentemente" << endl;
     cin >> qtd;
-    qtd--;
 
-    inicializaTab(qtd);
+    inicializaTab(argv[0]);
+    for(proc = 0; proc < qtd; proc++){
+        pid = fork();
 
-    while(qtd >= 0){
+        if(pid == -1){
+            cout << "Erro ao criar processo" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        else if(pid == 0)
+            break;
+    }
+
+    if(pid == 0){
         string linha;
         stringstream nome;
         vector<string> paginas;
-        nome << "pag_processo_" << qtd;
+
+        nome << "pag_processo_" << proc;
         processo.open(nome.str().c_str());
+        defineProcesso(proc);
 
         if(!processo.is_open()){
             cout << "Erro ao abrir o arquivo " << nome.str() << "Encerrando..." << endl;
@@ -40,10 +56,17 @@ int main(){
         }
 
         processo.close();
-        qtd--;
+        shutdown(pid);
+        exit(EXIT_SUCCESS);
+    }
+    else{
+        int status, wpid;
+
+        do{
+            wpid = wait(&status);
+        }while(wpid > 0);
     }
 
-    shutdown();
-
+    shutdown(pid);
     return 0;
 }
