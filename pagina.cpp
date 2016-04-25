@@ -1,15 +1,9 @@
 #include "pagina.h"
 
-//Memória compartilhada
-//frame tab[NUMERO_FRAMES];
-//int ocupacao_atual = 0;
-//int page_fault = 0;
-//int subs = 0;
-
-
 //globais do processo atual
 int proc;
 int proc_page_fault = 0;
+//Memória compartilhada
 int *subs, *page_faults, *ocupacao_atual;
 frame *tab;
 
@@ -28,7 +22,6 @@ void preencheFrame(int i, int pagina){
     tab[i].livre = false;
     tab[i].pagina = pagina;
     tab[i].processo = proc;
-    tab[i].pid = getpid();
 
     gettimeofday(&t, NULL);
     tab[i].tempo = t.tv_sec * 1000000L + t.tv_usec;
@@ -165,14 +158,13 @@ void shutdown(int pid){
 
     if(pid == 0)
         cout << "Número de page faults do processo " << proc << ": " << proc_page_fault << endl;
-    else{
-
+    else
         shutdownFinal();
-        shmdt(ocupacao_atual);
-        shmdt(page_faults);
-        shmdt(subs);
-        shmdt(tab);
-    }
+
+    shmdt(ocupacao_atual);
+    shmdt(page_faults);
+    shmdt(subs);
+    shmdt(tab);
 }
 
 void referencia_pagina(int i){

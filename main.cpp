@@ -33,8 +33,10 @@ int main(int argc, char *argv[]){
             exit(EXIT_FAILURE);
         }
 
-        else if(pid == 0)
+        else if(pid == 0){
+            cout << "Novo filho. Proc: " << proc << endl;
             break;
+        }
     }
 
     if(pid == 0){
@@ -46,6 +48,8 @@ int main(int argc, char *argv[]){
         processo.open(nome.str().c_str());
         defineProcesso(proc, ids);
 
+        cout << "Processo " << proc << " vai comecar execucao" << endl;
+
         if(!processo.is_open()){
             cout << "Erro ao abrir o arquivo " << nome.str() << "Encerrando..." << endl;
             exit(EXIT_FAILURE);
@@ -54,15 +58,20 @@ int main(int argc, char *argv[]){
         getline(processo, linha);
         paginas = explode(linha, ',');
 
+        cout << "Processo " << proc << " leu do arquivo as paginas" << endl;
+
         for(vector<string>::iterator it = paginas.begin(); it != paginas.end(); it++){
             string::size_type sz;
             int pag = stoi(*it, &sz);
+            cout << "Processo " << proc << ": referencia_pagina(" << pag << ")" << endl;
 
             referencia_pagina(pag);
         }
 
         processo.close();
         shutdown(pid);
+
+        cout << "Processo " << proc << " terminou execucao" << endl;
         exit(EXIT_SUCCESS);
     }
     else{

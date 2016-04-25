@@ -7,7 +7,6 @@
 //Includes de chamadas de sistema
 #include <sys/time.h>
 #include <sys/shm.h>
-#include <unistd.h>
 
 #define MAX_OCUPACAO 9
 #define OCUPACAO_OK 8
