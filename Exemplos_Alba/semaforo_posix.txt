@@ -1,0 +1,15 @@
+#pragma once
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/sem.h>
+
+#include <iostream>
+using namespace std;
+
+void inicializaSem();
+
+void P();
+
+void V();
+
+void finalizaSem();

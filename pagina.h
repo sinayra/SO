@@ -4,9 +4,13 @@
 #include <ctime>
 #include <vector>
 #include <algorithm>
+#include <map>
+#include "semaforo.h"
+#include "fila_mensagem.h"
 //Includes de chamadas de sistema
 #include <sys/time.h>
 #include <sys/shm.h>
+#include <unistd.h>
 
 #define MAX_OCUPACAO 9
 #define OCUPACAO_OK 8
@@ -15,12 +19,19 @@
 using namespace std;
 ///Frame
 //linha da tabela de páginas
+
+typedef enum{
+    LIVRE,
+    OCUPADO,
+    RESERVADO
+}tipoEstado;
+
 typedef struct{
     int pagina;
     long int tempo;
     int processo;
     int pid;
-    bool livre;
+    tipoEstado estado;
 }frame;
 
 typedef struct{
@@ -29,19 +40,16 @@ typedef struct{
 }frameAux;
 
 ///Inicializa tab com frames livres
-void inicializaTab(char *path, int ids[4]);
-
-///Seta variável global proc
-void defineProcesso(int processo, int ids[4]);
+void inicializaTab();
 
 ///Alocação de Páginas
-//reserva um pageframe para página i
+//reserva um pageframe para página enviada por mensagem
 //Se página não estiver alocada, escolhe aleatoriamente frames livres e ocorre page fault
-void aloca(int i);
+void aloca();
 
 ///Substituição de Páginas
 //Caso não há frames livres, executa LRU
-void substitui(int i);
+void substitui();
 
 ///Terminar execução dos processos
 // Imprime na tela
@@ -49,7 +57,7 @@ void substitui(int i);
 //  b) Número total de page faults
 //  c) Número de substituições
 //  d) Configuração final da tabela de páginas
-void shutdown(int pid);
+void shutdown();
 
 ///Reserva uma page frame para página i
-void referencia_pagina(int i);
+void referencia_pagina(int i, int processo);

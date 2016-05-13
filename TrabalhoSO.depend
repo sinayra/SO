@@ -1,27 +1,35 @@
 # depslib dependency file v1.0
-1460727568 source:/home/secreto/Desktop/SO/Exemplos_Alba/prog1.c
+1460727873 source:/home/secreto/Desktop/SO/Exemplos_Alba/prog1.c
 	<stdio.h>
 
-1461553110 source:/home/secreto/Desktop/SO/pagina.cpp
+1463149970 source:/home/secreto/Desktop/SO/pagina.cpp
 	"pagina.h"
 
-1461553124 /home/secreto/Desktop/SO/pagina.h
+1463149270 /home/secreto/Desktop/SO/pagina.h
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<vector>
 	<algorithm>
+	<map>
+	"semaforo.h"
+	"fila_mensagem.h"
 	<sys/time.h>
 	<sys/shm.h>
+	<unistd.h>
 
-1461553362 source:/home/secreto/Desktop/SO/main.cpp
-	"pagina.h"
+1463138318 source:/home/secreto/Desktop/SO/main.cpp
+	"fila_mensagem.h"
 	"utils.h"
+	"pagina.h"
+	<string>
 	<fstream>
 	<sstream>
 	<iostream>
-	<string>
+	<vector>
+	<signal.h>
 	<unistd.h>
+	<sys/types.h>
 	<sys/wait.h>
 
 1461158261 /home/secreto/Desktop/SO/utils.h
@@ -29,6 +37,37 @@
 	<vector>
 	<iostream>
 
-1461158651 source:/home/secreto/Desktop/SO/utils.cpp
+1461596023 source:/home/secreto/Desktop/SO/utils.cpp
 	"utils.h"
+
+1463137724 /home/secreto/Desktop/SO/semaforo.h
+	<sys/types.h>
+	<sys/ipc.h>
+	<sys/sem.h>
+	<iostream>
+
+1463137724 source:/home/secreto/Desktop/SO/semaforo.cpp
+	"semaforo.h"
+
+1463137778 source:/home/secreto/Desktop/SO/fila_mensagem.cpp
+	"fila_mensagem.h"
+
+1463137745 /home/secreto/Desktop/SO/fila_mensagem.h
+	<sys/types.h>
+	<sys/ipc.h>
+	<sys/msg.h>
+	<sys/errno.h>
+	<iostream>
+	<cstdlib>
+
+1460728047 source:/home/secreto/Desktop/SO/Exemplos_Alba/prog3.c
+	<errno.h>
+	<stdio.h>
+	<string.h>
+
+941025112 source:/home/secreto/Desktop/SO/Exemplos_Alba/progexms.c
+	<errno.h>
+	<sys/types.h>
+	<sys/ipc.h>
+	<sys/msg.h>
 
