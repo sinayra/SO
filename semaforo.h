@@ -19,4 +19,4 @@ void P(int idsem);
 
 void V(int idsem);
 
-void finalizaSem(int idsem);
+void destroiSem(int idsem);

@@ -1,6 +1,7 @@
 #include "fila_mensagem.h"
 #include "utils.h"
 #include "pagina.h"
+#include "shutdown.h"
 
 #include <string>
 #include <fstream>

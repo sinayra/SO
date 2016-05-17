@@ -33,21 +33,10 @@ bool ordenaFrame(frameAux v1, frameAux v2){
         return v1.tempo < v2.tempo;
 }
 
-
-void printTabela(){
-    cout << "Processo\t Pagina \t Tempo de referencia" << endl;
-    for(int i = 0; i < NUMERO_FRAMES; i++){
-        if(tab[i].estado == LIVRE)
-            cout << "Livre" << endl;
-        else
-            cout << tab[i].processo << "\t\t\t" << tab[i].pagina << "\t" << tab[i].tempo << endl;
-    }
-}
-
 int getPagina(int i){
 
     for(int j = 0; j < NUMERO_FRAMES; j++){
-        if(tab[j].pagina == i)
+        if(tab[j].pagina == i && tab[j].processo == proc_atual)
             return j;
     }
     return -1;
@@ -55,33 +44,13 @@ int getPagina(int i){
 
 void inicializaTab(){
     int ids[3];
+    ids[0] = inicializaMemInt();
+    ids[1] = inicializaMemInt();
+    ids[2] = inicializaMemFrame(NUMERO_FRAMES);
 
-    ids[0] = shmget(IPC_PRIVATE, sizeof(int), 0666 | IPC_CREAT);
-    ids[1] = shmget(IPC_PRIVATE, sizeof(int), 0666 | IPC_CREAT);
-    ids[2] = shmget(IPC_PRIVATE, sizeof(frame) * NUMERO_FRAMES, 0666 | IPC_CREAT);
-
-    if(ids[0] == -1 || ids[1] == -1 || ids[2] == -1){
-        cout << "Erro com shmget()" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    tab = (frame *)shmat(ids[2], 0, 0);
-    if(tab == (frame*)-1){
-        cout << "Erro em shmat() para tab" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    subs = (int *)shmat(ids[0], 0, 0);
-    if(subs == (int*)-1){
-        cout << "Erro em shmat() para subs" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    ocupacao_atual = (int *)shmat(ids[1], 0, 0);
-    if(ocupacao_atual == (int*)-1){
-        cout << "Erro em shmat() para ocupacao_atual" << endl;
-        exit(EXIT_FAILURE);
-    }
+    associaMemInt(&subs, ids[0]);
+    associaMemInt(&ocupacao_atual, ids[1]);
+    associaMemFrame(&tab, ids[2]);
 
     sem_proc = inicializaSem();
     sem_escreve = inicializaSem();
@@ -93,6 +62,7 @@ void inicializaTab(){
         limpaFrame(i);
 
     msg = inicializaMsg();
+
 }
 
 void substitui_manual(){
@@ -134,15 +104,14 @@ void substitui(){
         cout.flush();
         cout << "ocupacao atual substitui: " << *ocupacao_atual << endl << endl;
         if(*ocupacao_atual >= MAX_OCUPACAO){
-            cout << endl << "---------------------" << endl << "Substituidor!" << endl;
-                substitui_manual();
+            //cout << endl << "---------------------" << endl << "Substituidor!" << endl;
                 //printTabela();
-                cout << endl << "---------------------" << endl;
+                //cout << endl << "---------------------" << endl;
             (*subs)++;
             substitui_manual();
         }
-        else
-            sleep(1);
+        //else
+            //sleep(1);
     }
 
 }
@@ -154,21 +123,23 @@ void aloca(int i){
     int index = getPagina(i);
 
     if(index < 0){
-        //cout << "ocupacao atual aloca: " << *ocupacao_atual << endl;
+        cout << "ocupacao atual aloca: " << *ocupacao_atual << "\tNUMERO_FRAMES" << NUMERO_FRAMES << endl;
         //cin.get();
         //cout << endl << "********************************" << endl;
         //cout << "Antes de colocar pagina " << i << " do processo " << proc << endl;
         //printTabela();
-        if(*ocupacao_atual >= MAX_OCUPACAO){
+        if(*ocupacao_atual >= NUMERO_FRAMES){
             cout << endl << "---------------------" << endl << "SUBS!" << endl;
+            cout.flush();
             substitui_manual();
             //printTabela();
             cout << endl << "---------------------" << endl;
         }
-        j = 0;
-        /*while(!tab[j].livre)
-            j++;*/
+        cout << "NAO ENTROU NO IF" << endl;
         P(sem_escreve);
+        /*j = 0;
+        while(tab[j].estado != LIVRE)
+            j++;*/
         do{
             j = rand()%NUMERO_FRAMES;
         }while(tab[j].estado != LIVRE);
@@ -192,53 +163,8 @@ void aloca(int i){
     }
 }
 
-
-void shutdown(){
-
-    if(!proc.empty()){
-        mensagem snd;
-        for(map<int, int>::iterator it = proc.begin(); it != proc.end(); it++){
-            //cout << "EEEETA: Número de page faults do processo " << it->first << ": " << it->second << endl;
-            snd.processo = it->first;
-            snd.page_faults = it->second;
-            //page_faults += it->second;
-
-            enviaMsg(msg, snd);
-        }
-        snd.processo = -1;
-        enviaMsg(msg, snd);
-        //cout << "Número de page faults total: " << page_faults << endl;
-    }
-    else{
-        mensagem rcv;
-        int page_faults = 0;
-
-        do{
-            rcv = recebeMsg(msg);
-            if(rcv.processo != -1){
-                cout << "Número de page faults do processo " << rcv.processo << ": " << rcv.page_faults << endl;
-                page_faults += rcv.page_faults;
-            }
-        }while(rcv.processo != -1);
-
-        cout << "Número de page faults total: " << page_faults << endl;
-        cout << "Número de execuções do processo de substituição: " << *subs << endl;
-        cout << "Configuração final da memória:" << endl;
-        printTabela();
-
-        finalizaSem(sem_escreve);
-        finalizaSem(sem_proc);
-
-        shmdt(ocupacao_atual);
-        shmdt(subs);
-        shmdt(tab);
-        destroiMsg(msg);
-    }
-
-}
-
 void referencia_pagina(int i, int processo){
-    //cout << "P() para processo " << processo << endl;
+    cout << "P() para processo " << processo << endl;
     P(sem_proc);
     //cout << "entrou em referencia_pagina" << endl;
         map<int, int>::iterator it = proc.begin();
@@ -248,6 +174,6 @@ void referencia_pagina(int i, int processo){
         //cout << "processo: " << (proc.begin())->first << "\t qtd: " << (proc.begin())->second << endl;
         aloca(i);
     //cout << "saiu de aloca" << endl;
-    //cout << "V() para processo " << processo  << endl;
+    cout << "V() para processo " << processo  << endl;
     V(sem_proc);
 }

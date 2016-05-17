@@ -2,11 +2,10 @@
 1460727873 source:/home/secreto/Desktop/SO/Exemplos_Alba/prog1.c
 	<stdio.h>
 
-1463149970 source:/home/secreto/Desktop/SO/pagina.cpp
+1463402356 source:/home/secreto/Desktop/SO/pagina.cpp
 	"pagina.h"
 
-1463149270 /home/secreto/Desktop/SO/pagina.h
-	<iostream>
+1463396282 /home/secreto/Desktop/SO/pagina.h
 	<cstdlib>
 	<ctime>
 	<vector>
@@ -14,14 +13,16 @@
 	<map>
 	"semaforo.h"
 	"fila_mensagem.h"
+	"memoria_compartilhada.h"
+	"utils.h"
 	<sys/time.h>
-	<sys/shm.h>
 	<unistd.h>
 
-1463138318 source:/home/secreto/Desktop/SO/main.cpp
+1463394971 source:/home/secreto/Desktop/SO/main.cpp
 	"fila_mensagem.h"
 	"utils.h"
 	"pagina.h"
+	"shutdown.h"
 	<string>
 	<fstream>
 	<sstream>
@@ -32,7 +33,7 @@
 	<sys/types.h>
 	<sys/wait.h>
 
-1461158261 /home/secreto/Desktop/SO/utils.h
+1463395074 /home/secreto/Desktop/SO/utils.h
 	<string>
 	<vector>
 	<iostream>
@@ -40,13 +41,13 @@
 1461596023 source:/home/secreto/Desktop/SO/utils.cpp
 	"utils.h"
 
-1463137724 /home/secreto/Desktop/SO/semaforo.h
+1463396253 /home/secreto/Desktop/SO/semaforo.h
 	<sys/types.h>
 	<sys/ipc.h>
 	<sys/sem.h>
 	<iostream>
 
-1463137724 source:/home/secreto/Desktop/SO/semaforo.cpp
+1463396253 source:/home/secreto/Desktop/SO/semaforo.cpp
 	"semaforo.h"
 
 1463137778 source:/home/secreto/Desktop/SO/fila_mensagem.cpp
@@ -70,4 +71,22 @@
 	<sys/types.h>
 	<sys/ipc.h>
 	<sys/msg.h>
+
+1463396038 /home/secreto/Desktop/SO/shutdown.h
+	<iostream>
+	"fila_mensagem.h"
+	"memoria_compartilhada.h"
+	"semaforo.h"
+	"utils.h"
+	<map>
+
+1463396663 /home/secreto/Desktop/SO/memoria_compartilhada.h
+	"utils.h"
+	<sys/shm.h>
+
+1463396674 source:/home/secreto/Desktop/SO/memoria_compartilhada.cpp
+	"memoria_compartilhada.h"
+
+1463396252 source:/home/secreto/Desktop/SO/shutdown.cpp
+	"shutdown.h"
 

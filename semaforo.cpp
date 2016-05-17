@@ -42,7 +42,7 @@ void V(int idsem){
     }
 }
 
-void finalizaSem(int idsem){
+void destroiSem(int idsem){
     union semun sem_union;
 
     sem_union.val = 1;

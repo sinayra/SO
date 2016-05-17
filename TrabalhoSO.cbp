@@ -39,10 +39,14 @@
 		<Unit filename="fila_mensagem.cpp" />
 		<Unit filename="fila_mensagem.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="memoria_compartilhada.cpp" />
+		<Unit filename="memoria_compartilhada.h" />
 		<Unit filename="pagina.cpp" />
 		<Unit filename="pagina.h" />
 		<Unit filename="semaforo.cpp" />
 		<Unit filename="semaforo.h" />
+		<Unit filename="shutdown.cpp" />
+		<Unit filename="shutdown.h" />
 		<Unit filename="utils.cpp" />
 		<Unit filename="utils.h" />
 		<Extensions>
