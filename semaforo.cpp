@@ -1,12 +1,15 @@
 #include "semaforo.h"
 
-struct sembuf operacao;
+vector<struct sembuf> operacao;
+int cont = 0;
 
 int inicializaSem(){
     int idsem;
     union semun sem_union;
+    cont++;
+    operacao.reserve(cont);
 
-    idsem = semget(IPC_PRIVATE, 1, IPC_CREAT | 0666);
+    idsem = semget(IPC_PRIVATE, 1, IPC_CREAT | IPC_EXCL | 0666);
     if(idsem < 0){
         cout << "Erro com semget" << endl;
         exit(EXIT_FAILURE);
@@ -20,23 +23,23 @@ int inicializaSem(){
     return idsem;
 }
 
-void P(int idsem){
-    operacao.sem_num = 0;
-    operacao.sem_op = -1; //P()
-    operacao.sem_flg = SEM_UNDO;
+void P(int idsem, int index){
+    operacao[index].sem_num = 0;
+    operacao[index].sem_op = -1; //P()
+    operacao[index].sem_flg = SEM_UNDO;
 
-    if(semop(idsem, &operacao, 1) < 0){
+    if(semop(idsem, &operacao[index], 1) < 0){
         cout << "Erro com semop" << endl;
         exit(EXIT_FAILURE);
     }
 }
 
-void V(int idsem){
-    operacao.sem_num = 0;
-    operacao.sem_op = 1; //V()
-    operacao.sem_flg = SEM_UNDO;
+void V(int idsem, int index){
+    operacao[index].sem_num = 0;
+    operacao[index].sem_op = 1; //V()
+    operacao[index].sem_flg = SEM_UNDO;
 
-    if(semop(idsem, &operacao, 1) < 0){
+    if(semop(idsem, &operacao[index], 1) < 0){
         cout << "Erro com semop" << endl;
         exit(EXIT_FAILURE);
     }

@@ -1,6 +1,7 @@
 #include "fila_mensagem.h"
 #include "utils.h"
 #include "pagina.h"
+#include "alocador.h"
 #include "shutdown.h"
 
 #include <string>
@@ -9,7 +10,6 @@
 #include <iostream>
 #include <vector>
 
-#include <signal.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -28,28 +28,6 @@ void encerra(int signo){
         exit(EXIT_SUCCESS);
     }
 
-}
-
-void alocador(){
-    mensagem msg_r, msg_s;
-
-    signal(SIGUSR1, encerra);
-    //cout << "Sou alocador" << endl;
-    while(1){
-        msg_r = recebeMsg(req);
-        //cout << "Recebeu mensagem! Processo " << msg_r.processo << "\tAlocado: " << msg_r.alocado << endl;
-        cout << "Alocador recebeu mensagem! Processo " << msg_r.processo << "\tPagina: " << msg_r.pagina << "\tAlocado: " << msg_r.alocado << endl;
-        referencia_pagina(msg_r.pagina, msg_r.processo);
-
-        msg_s = msg_r;
-        msg_s.alocado = true;
-        enviaMsg(resp, msg_s);
-    }
-}
-
-void substituidor(){
-    signal(SIGUSR2, encerra);
-    substitui();
 }
 
 void processo(int proc){

@@ -17,19 +17,16 @@ void printTabela(){
 
 void shutdown(){
 
-    if(!proc.empty()){
+    if(!proc.empty()){ //Este e o processo alocador
         mensagem snd;
         for(map<int, int>::iterator it = proc.begin(); it != proc.end(); it++){
-            //cout << "EEEETA: Número de page faults do processo " << it->first << ": " << it->second << endl;
             snd.processo = it->first;
             snd.page_faults = it->second;
-            //page_faults += it->second;
 
             enviaMsg(msg, snd);
         }
         snd.processo = -1;
         enviaMsg(msg, snd);
-        //cout << "Número de page faults total: " << page_faults << endl;
     }
     else{
         mensagem rcv;

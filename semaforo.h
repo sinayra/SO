@@ -1,4 +1,6 @@
 #pragma once
+
+#include <vector>
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
@@ -13,10 +15,11 @@ union semun{
     struct seminfo *__buf;
 };
 
+///Retorna indice do novo semaforo
 int inicializaSem();
 
-void P(int idsem);
+void P(int idsem, int index);
 
-void V(int idsem);
+void V(int idsem, int index);
 
 void destroiSem(int idsem);

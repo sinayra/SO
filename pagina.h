@@ -2,9 +2,8 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <vector>
 #include <algorithm>
-#include <map>
+#include <climits>
 
 #include "semaforo.h"
 #include "fila_mensagem.h"
@@ -19,14 +18,16 @@ using namespace std;
 ///Inicializa tab com frames livres
 void inicializaTab();
 
-///Alocação de Páginas
-//reserva um pageframe para página enviada por mensagem
-//Se página não estiver alocada, escolhe aleatoriamente frames livres e ocorre page fault
-void aloca();
+///Retorna indice da pagina do processo referenciado
+//se nao existir, retorna -1
+int getPagina(int i);
 
-///Substituição de Páginas
-//Caso não há frames livres, executa LRU
-void substitui();
+///Preenche frame i, deixando-o com status OCUPADO
+void preencheFrame(int i, int pagina);
 
-///Reserva uma page frame para página i
-void referencia_pagina(int i, int processo);
+///Preenche frame i, deixando-o com status LIVRE
+void limpaFrame(int i);
+
+///QuickSort para ordenar tabela, do maior para menor
+//Utiliza sort do c++
+bool ordenaFrame(frameAux v1, frameAux v2);

@@ -18,7 +18,6 @@ void destroiMsg(int id){
     status = msgctl(id, IPC_RMID, NULL);
     if(status < 0){
         cout << "Erro ao destruir fila de mensagem" << endl;
-        //perror("msgclt");
         exit(EXIT_FAILURE);
     }
 }
@@ -29,14 +28,9 @@ mensagem enviaMsg(int id, mensagem msg){
     msg.mtype = 1;
     tamanho = sizeof(mensagem) - sizeof(long);
     erro = msgsnd(id, &msg, tamanho, 0);
-    //cout << endl << "enviou mensagem do processo " << msg.processo << endl;
-    //cout << "FILA ALOCAR4: " << id << endl;
-    //cout.flush();
 
     if(erro == -1){
         cout << "Erro ao enviar mensagem" << endl;
-        //perror("msgsnd");
-        //exit(EXIT_FAILURE);
         msg.alocado = false;
         msg.mtype = -1;
         msg.page_faults = -1;
@@ -57,8 +51,6 @@ mensagem recebeMsg(int id){
 
     if(erro == -1){
         cout << "Erro ao receber mensagem" << endl;
-        //perror("msgrcv");
-        //exit(EXIT_FAILURE);
         msg.alocado = false;
         msg.mtype = -1;
         msg.page_faults = -1;
