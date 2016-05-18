@@ -15,8 +15,8 @@
 
 using namespace std;
 
-///Inicializa tab com frames livres
-void inicializaTab();
+///Inicializa vetor de frames e mecanismos de sincronizacao
+void inicializaMemVirtual();
 
 ///Retorna indice da pagina do processo referenciado
 //se nao existir, retorna -1

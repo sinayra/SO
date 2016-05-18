@@ -1,4 +1,4 @@
-#include "pagina.h"
+#include "../include/pagina.h"
 
 //Globais do processo executando atualmente
 int proc_atual = -1;
@@ -40,7 +40,7 @@ int getPagina(int i){
     return -1;
 }
 
-void inicializaTab(){
+void inicializaMemVirtual(){
     int ids[3];
     ids[0] = inicializaMemInt();
     ids[1] = inicializaMemInt();

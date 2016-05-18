@@ -1,4 +1,4 @@
-#include "semaforo.h"
+#include "../include/semaforo.h"
 
 struct sembuf operacao[2];
 
@@ -34,7 +34,7 @@ void V(int idsem){
     operacao[0].sem_op = -1;
     operacao[0].sem_flg = 0;
 
-    if(semop(idsem, operacao, 2) < 0){
+    if(semop(idsem, operacao, 1) < 0){
         cout << "Erro com semop" << endl;
         exit(EXIT_FAILURE);
     }

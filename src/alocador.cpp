@@ -1,4 +1,4 @@
-#include "alocador.h"
+#include "../include/alocador.h"
 
 extern int req, resp;
 map<int, int> proc;
@@ -30,9 +30,7 @@ void aloca(int i){
     int index = getPagina(i);
 
     if(index < 0){
-    cout << "aloca" << endl;
         P(sem);
-        cout << "P ALOCA" << endl;
 
             if(*ocupacao_atual >= NUMERO_FRAMES)
                 substitui();
@@ -47,7 +45,6 @@ void aloca(int i){
             proc[proc_atual]++;
 
         V(sem);
-        cout << "V ALOCA" << endl;
     }
     else{
         P(sem);
@@ -60,8 +57,8 @@ void referencia_pagina(int i, int processo){
 
     map<int, int>::iterator it = proc.begin();
     proc_atual = processo;
-    proc.insert(it, pair<int, int>(processo, 0)); //se ja tiver esse processo, não insere
+
+    proc.insert(it, pair<int, int>(processo, 0)); //se ja tiver esse processo, nao insere
 
     aloca(i);
-
 }

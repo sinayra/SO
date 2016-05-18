@@ -1,4 +1,4 @@
-#include "memoria_compartilhada.h"
+#include "../include/memoria_compartilhada.h"
 
 int inicializaMemInt(int num){
     int id;
