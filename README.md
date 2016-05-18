@@ -49,4 +49,4 @@ Sinayra Pascoal Cotts Moreira 		10/0020666
 	Para executar, execute o comando:
 		./sim
 		Ele perguntará quantos processos entrarão em execução. Certifique-se que, para a quantidade de processos que queira executar, tenha os arquivos pag_processo_X correspondentes.
-Por exemplo, caso queira executar 2 processos, é necessário ter os arquivos pag_processo_0 e pag_processo_1.
+	Por exemplo, caso queira executar 2 processos, é necessário ter os arquivos pag_processo_0 e pag_processo_1.
