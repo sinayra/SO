@@ -4,7 +4,7 @@ extern int req, resp;
 map<int, int> proc;
 
 extern void encerra(int signo);
-extern int sem_proc, sem_escreve, proc_atual;
+extern int sem, proc_atual;
 extern int *ocupacao_atual;
 extern frame *tab;
 
@@ -30,8 +30,9 @@ void aloca(int i){
     int index = getPagina(i);
 
     if(index < 0){
+    cout << "aloca" << endl;
+        P(sem);
         cout << "P ALOCA" << endl;
-        P(sem_escreve, 1);
 
             if(*ocupacao_atual >= NUMERO_FRAMES)
                 substitui();
@@ -45,25 +46,22 @@ void aloca(int i){
 
             proc[proc_atual]++;
 
-        V(sem_escreve, 1);
+        V(sem);
         cout << "V ALOCA" << endl;
     }
     else{
-        P(sem_escreve, 1);
+        P(sem);
             preencheFrame(index, i);
-        V(sem_escreve, 1);
+        V(sem);
     }
 }
 
 void referencia_pagina(int i, int processo){
 
-    P(sem_proc, 0);
+    map<int, int>::iterator it = proc.begin();
+    proc_atual = processo;
+    proc.insert(it, pair<int, int>(processo, 0)); //se ja tiver esse processo, não insere
 
-        map<int, int>::iterator it = proc.begin();
-        proc_atual = processo;
-        proc.insert(it, pair<int, int>(processo, 0)); //se ja tiver esse processo, não insere
+    aloca(i);
 
-        aloca(i);
-
-    V(sem_proc, 0);
 }

@@ -2,7 +2,7 @@
 
 //Globais do processo executando atualmente
 int proc_atual = -1;
-int msg, sem_proc, sem_escreve;
+int msg, sem;
 //Memória compartilhada
 int *subs, *ocupacao_atual;
 frame *tab;
@@ -50,8 +50,7 @@ void inicializaTab(){
     associaMemInt(&ocupacao_atual, ids[1]);
     associaMemFrame(&tab, ids[2]);
 
-    sem_proc = inicializaSem(); //index 0
-    sem_escreve = inicializaSem(); //index 1
+    sem = inicializaSem();
 
     *ocupacao_atual = 0;
     *subs = 0;

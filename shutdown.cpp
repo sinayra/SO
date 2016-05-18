@@ -2,7 +2,7 @@
 
 extern frame *tab;
 extern map<int, int> proc;
-extern int msg, sem_proc, sem_escreve;
+extern int msg, sem;
 extern int *subs, *ocupacao_atual;
 
 void printTabela(){
@@ -45,8 +45,7 @@ void shutdown(){
         cout << "Configuração final da memória:" << endl;
         printTabela();
 
-        destroiSem(sem_escreve);
-        destroiSem(sem_proc);
+        destroiSem(sem);
 
         destroiMem((void*)ocupacao_atual);
         destroiMem((void*)subs);

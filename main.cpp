@@ -41,7 +41,7 @@ void processo(int proc){
     nome << "pag_processo_" << proc;
     processo.open(nome.str().c_str());
 
-    cout << "Processo " << proc << " vai comecar execucao" << endl;
+    //cout << "Processo " << proc << " vai comecar execucao" << endl;
 
     if(!processo.is_open()){
         cout << "Erro ao abrir o arquivo " << nome.str() << "Encerrando..." << endl;
@@ -62,13 +62,13 @@ void processo(int proc){
             msg_s.alocado = false;
             msg_s.processo = proc;
             msg_s.pagina = pag;
+            cout << "Processo " << proc << ": referencia_pagina(" << pag << ")" << endl;
             enviaMsg(req, msg_s);
 
             msg_r = recebeMsg(resp);
-            cout << "Processo " << proc << ": referencia_pagina(" << pag << ")" << endl;
             cout.flush();
             //cout << "Recebeu mensagem! Processo " << msg_r.processo << "\tAlocado: " << msg_r.alocado << endl;
-            //cout << "Processo recebeu mensagem! Processo " << msg_r.processo << "\tPagina: " << msg_r.pagina << "\tAlocado: " << msg_r.alocado << endl;
+            cout << "Processo recebeu mensagem! Processo " << msg_r.processo << "\tPagina: " << msg_r.pagina << "\tAlocado: " << msg_r.alocado << endl;
         }while(!msg_r.alocado);
     }
     //cout << endl << "Processo " << proc << " terminou execucao" << endl << endl;

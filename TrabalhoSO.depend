@@ -2,7 +2,7 @@
 1460727873 source:/home/secreto/Desktop/SO/Exemplos_Alba/prog1.c
 	<stdio.h>
 
-1463525096 source:/home/secreto/Desktop/SO/pagina.cpp
+1463530551 source:/home/secreto/Desktop/SO/pagina.cpp
 	"pagina.h"
 
 1463526346 /home/secreto/Desktop/SO/pagina.h
@@ -17,7 +17,7 @@
 	<sys/time.h>
 	<unistd.h>
 
-1463525180 source:/home/secreto/Desktop/SO/main.cpp
+1463529011 source:/home/secreto/Desktop/SO/main.cpp
 	"fila_mensagem.h"
 	"utils.h"
 	"pagina.h"
@@ -40,14 +40,16 @@
 1463525180 source:/home/secreto/Desktop/SO/utils.cpp
 	"utils.h"
 
-1463526346 /home/secreto/Desktop/SO/semaforo.h
+1463532185 /home/secreto/Desktop/SO/semaforo.h
 	<vector>
 	<sys/types.h>
 	<sys/ipc.h>
 	<sys/sem.h>
+	<errno.h>
+	<unistd.h>
 	<iostream>
 
-1463522797 source:/home/secreto/Desktop/SO/semaforo.cpp
+1463532403 source:/home/secreto/Desktop/SO/semaforo.cpp
 	"semaforo.h"
 
 1463525096 source:/home/secreto/Desktop/SO/fila_mensagem.cpp
@@ -86,10 +88,10 @@
 1463516386 source:/home/secreto/Desktop/SO/memoria_compartilhada.cpp
 	"memoria_compartilhada.h"
 
-1463525096 source:/home/secreto/Desktop/SO/shutdown.cpp
+1463530637 source:/home/secreto/Desktop/SO/shutdown.cpp
 	"shutdown.h"
 
-1463526347 source:/home/secreto/Desktop/SO/alocador.cpp
+1463532225 source:/home/secreto/Desktop/SO/alocador.cpp
 	"alocador.h"
 
 1463526364 /home/secreto/Desktop/SO/alocador.h
@@ -104,6 +106,6 @@
 	"pagina.h"
 	"utils.h"
 
-1463524840 source:/home/secreto/Desktop/SO/substituidor.cpp
+1463532288 source:/home/secreto/Desktop/SO/substituidor.cpp
 	"substituidor.h"
 

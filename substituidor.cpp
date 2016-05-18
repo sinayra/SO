@@ -2,24 +2,24 @@
 
 extern void encerra(int signo);
 extern int *subs, *ocupacao_atual;
-extern int sem_escreve;
+extern int sem;
 extern frame *tab;
 
 void substituidor(){
 
     signal(SIGUSR2, encerra);
-
+sleep(5);
     while(1){
-    cout << "P SUBSTITUIDOR" << endl;
-        P(sem_escreve, 1);
+        P(sem);
+        cout << "P SUBSTITUIDOR" << endl;
             if(*ocupacao_atual >= MAX_OCUPACAO){
                 (*subs)++;
                 substitui();
             }
-        V(sem_escreve, 1);
+        V(sem);
         cout << "V SUBSTITUIDOR" << endl;
 
-        nanosleep((const struct timespec[]){0, 1000000}, NULL); //Dorme por 1ms
+        nanosleep((const struct timespec[]){0, 500000000L}, NULL); //Dorme por 1ms
     }
 }
 
