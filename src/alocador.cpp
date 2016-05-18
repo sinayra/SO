@@ -21,16 +21,17 @@ void alocador(){
         msg_s = msg_r;
         msg_s.alocado = true;
         enviaMsg(resp, msg_s);
+
     }
 }
 
 void aloca(int i){
-    int j;
+    int j, index;
 
-    int index = getPagina(i);
+    P(sem);
+    index = getPagina(i);
 
     if(index < 0){
-        P(sem);
 
             if(*ocupacao_atual >= NUMERO_FRAMES)
                 substitui();
@@ -44,13 +45,10 @@ void aloca(int i){
 
             proc[proc_atual]++;
 
-        V(sem);
     }
-    else{
-        P(sem);
+    else
             preencheFrame(index, i);
-        V(sem);
-    }
+    V(sem);
 }
 
 void referencia_pagina(int i, int processo){

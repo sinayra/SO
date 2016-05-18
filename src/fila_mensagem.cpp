@@ -22,40 +22,58 @@ void destroiMsg(int id){
     }
 }
 
-mensagem enviaMsg(int id, mensagem msg){
-    int tamanho, erro;
+void enviaMsg(int id, mensagem msg){
+    int tamanho, erro, tentativa = 0;
 
-    msg.mtype = 1;
+    if(msg.pagina >= 0)
+        msg.mtype = msg.pagina + 1;
+    else
+        msg.mtype = 1;
+
     tamanho = sizeof(mensagem) - sizeof(long);
-    erro = msgsnd(id, &msg, tamanho, 0);
 
-    if(erro == -1){
+    do{
+        erro = msgsnd(id, &msg, tamanho, 0);
+
+        if(erro == -1){
+            nanosleep((const struct timespec[]){0, 500000000L}, NULL); //Dorme por 0,5s
+            tentativa++;
+        }
+
+        if(tentativa == 10)
+            break;
+
+    }while(erro == -1);
+
+    if(erro < 0){
         cout << "Erro ao enviar mensagem" << endl;
-        msg.alocado = false;
-        msg.mtype = -1;
-        msg.page_faults = -1;
-        msg.pagina = -1;
-        msg.processo = -1;
+        exit(EXIT_FAILURE);
     }
 
-    return msg;
 }
 
 mensagem recebeMsg(int id){
     mensagem msg;
-    int tamanho, erro;
+    int tamanho, erro, tentativa = 0;
 
     tamanho = sizeof(mensagem) - sizeof(long);
 
-    erro = msgrcv(id, &msg, tamanho, 0, 0);
+    do{
+        erro = msgrcv(id, &msg, tamanho, 0, 0);
+
+        if(erro == -1){
+            nanosleep((const struct timespec[]){0, 500000000L}, NULL); //Dorme por 0,5s
+            tentativa++;
+        }
+
+        if(tentativa == 10)
+            break;
+    }while(erro == -1);
 
     if(erro == -1){
         cout << "Erro ao receber mensagem" << endl;
-        msg.alocado = false;
-        msg.mtype = -1;
-        msg.page_faults = -1;
-        msg.pagina = -1;
-        msg.processo = -1;
+        exit(EXIT_FAILURE);
     }
+
     return msg;
 }

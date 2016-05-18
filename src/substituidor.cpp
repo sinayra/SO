@@ -16,7 +16,7 @@ void substituidor(){
             }
         V(sem);
 
-        nanosleep((const struct timespec[]){0, 500000000L}, NULL); //Dorme por 1ms
+        nanosleep((const struct timespec[]){0, 500000000L}, NULL); //Dorme por 0,5s
     }
 }
 

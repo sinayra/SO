@@ -20,7 +20,7 @@ typedef struct{
 int inicializaMsg();
 
 ///Envia mensagem para uma fila id
-mensagem enviaMsg(int id, mensagem msg);
+void enviaMsg(int id, mensagem msg);
 
 ///Recebe mensagem da fila id
 mensagem recebeMsg(int id);

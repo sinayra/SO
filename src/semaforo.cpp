@@ -41,10 +41,9 @@ void V(int idsem){
 }
 
 void destroiSem(int idsem){
-    /*union semun sem_union;
 
-    if(semctl(idsem, 0, IPC_RMID, sem_union) < 0){
+    if(semctl(idsem, 0, IPC_RMID) < 0){
         cout << "Erro com semctl" << endl;
         exit(EXIT_FAILURE);
-    }*/
+    }
 }
