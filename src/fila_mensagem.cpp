@@ -22,13 +22,15 @@ void destroiMsg(int id){
     }
 }
 
-void enviaMsg(int id, mensagem msg){
+void enviaMsg(int id, mensagem msg, long type){
     int tamanho, erro, tentativa = 0;
 
-    if(msg.pagina >= 0)
-        msg.mtype = msg.pagina + 1;
-    else
-        msg.mtype = 1;
+    if(type != 1){
+        if(msg.pagina >= 0)
+            msg.mtype = ((msg.pagina + 1) * 2);
+        else
+            msg.mtype = 1;
+    }
 
     tamanho = sizeof(mensagem) - sizeof(long);
 
@@ -52,9 +54,11 @@ void enviaMsg(int id, mensagem msg){
 
 }
 
-mensagem recebeMsg(int id){
+mensagem recebeMsg(int id, long type){
     mensagem msg;
     int tamanho, erro, tentativa = 0;
+
+    msg.mtype = type;
 
     tamanho = sizeof(mensagem) - sizeof(long);
 

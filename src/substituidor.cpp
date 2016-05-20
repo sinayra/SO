@@ -9,19 +9,22 @@ void substituidor(){
 
     signal(SIGUSR2, encerra);
     while(1){
-        P(sem);
-            if(*ocupacao_atual >= MAX_OCUPACAO){
-                (*subs)++;
-                substitui();
+        if(*ocupacao_atual >= MAX_OCUPACAO){
+            (*subs)++;
+            while(*ocupacao_atual >= OCUPACAO_OK){
+                P(sem);
+                    substitui();
+                V(sem);
             }
-        V(sem);
+        }
 
-        nanosleep((const struct timespec[]){0, 500000000L}, NULL); //Dorme por 0,5s
+        nanosleep((const struct timespec[]){0, 100000000L}, NULL); //Dorme por 0,1s
     }
 }
 
 void substitui(){
     int j, k = 0;
+    bool limpou = false;
     vector<frameAux> v(NUMERO_FRAMES, {LONG_MAX, -1});
 
     for(int i = 0; i < NUMERO_FRAMES; i++){
@@ -34,14 +37,16 @@ void substitui(){
     sort(v.begin(), v.end(), ordenaFrame);
 
     j = 0;
-    while(*ocupacao_atual >= OCUPACAO_OK){
+    do{
         if(tab[v[j].index].estado == OCUPADO){
             tab[v[j].index].estado = RESERVADO;
             limpaFrame(v[j].index);
 
             (*ocupacao_atual)--;
+            limpou = true;
         }
         j++;
-    }
+    }while(!limpou);
+
 }
 

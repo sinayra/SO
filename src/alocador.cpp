@@ -20,7 +20,7 @@ void alocador(){
 
         msg_s = msg_r;
         msg_s.alocado = true;
-        enviaMsg(resp, msg_s);
+        enviaMsg(resp, msg_s, 2);
 
     }
 }

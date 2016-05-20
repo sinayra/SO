@@ -35,7 +35,7 @@ int main(){
     pid_t pid = -1, pid_sub = -1, pid_aloca = -1;
     bool flag_aloca;
 
-    cout << "Informe quantos processos irao executar concorrentemente" << endl;
+    cout << "Informe quantos processos de usuario irao executar concorrentemente" << endl;
     do{
         cin >> qtd;
         if(qtd < 1)

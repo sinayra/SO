@@ -8,7 +8,7 @@ Sinayra Pascoal Cotts Moreira 		10/0020666
 *******************************************
 	Este trabalho realiza uma simulação de gerência de memória paginada. Ele é separado em 4 grandes módulos: alocador, substituidor, processo de usuário e shutdown. Todos os três primeiros processos são criados pela função principal do programa, a main(). Ao final da execução de todos os processos de usuário, a main() encerra execução do alocador e substituidor e executa função de shutdown().
 
-	Shutdown: Este processo cria todos os processos que entrarão em execução e aguarda até que todos os processos de usuário termine. Após isso, ele imprime na tela um resumo dos eventos que ocorreram, imprimindo também a configuração final da memória.
+	Principal/Shutdown: Este processo cria todos os processos que entrarão em execução e aguarda até que todos os processos de usuário termine. Após isso, ele imprime na tela um resumo dos eventos que ocorreram, imprimindo também a configuração final da memória.
 
 	Processo de usuário: Este processo abre um arquivo texto, onde neste haverá uma única linha indicando todas as páginas que deverão ser referenciadas. Para cada página, é enviada uma requisição de referência dela ao alocador e, em seguida, aguarda resposta do mesmo. Se a resposta for positiva, então a página foi referenciada; caso contrário, processo reenvia requisição. Este processo termina sua execução quando todas suas páginas forem referenciadas.
 
@@ -32,7 +32,7 @@ Sinayra Pascoal Cotts Moreira 		10/0020666
 		2- Há uma fila de mensagem para o alocador e shutdown: o alocador repassa ao shutdown a quantidade de page fault de cada processo
 
 	Semáforo:
-		1- Se uma frame estiver sendo liberada pelo substituidor, o alocador deve esperar o término de execução do algoritmo de substituição para poder referenciar nova página.
+		1- Se uma frame estiver sendo liberada pelo substituidor, o alocador deve esperar o término de execução do algoritmo de substituição para poder referenciar nova página. Se o alocador inicia execução de referenciação de uma página, o substituidor espera até o término desta referenciação para poder verificar o estado da tabela, impedindo que o substituir libere uma frame que o alocador está referenciando.
 
 
 

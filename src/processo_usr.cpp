@@ -32,7 +32,7 @@ void processo(int proc){
         enviaMsg(req, msg_s);
         //cout << "Processo " << proc << ": referencia_pagina(" << pag << ")" << endl;
 
-        msg_r = recebeMsg(resp);
+        msg_r = recebeMsg(resp, (pag + 1) * 2); //numero magico para recuperar mensagem
         //cout <<"Alocado: Processo " << msg_r.processo << "\t pagina " << msg_r.pagina << endl;
 
     }

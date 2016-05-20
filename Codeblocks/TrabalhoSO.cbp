@@ -36,23 +36,25 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="include/alocador.h" />
-		<Unit filename="include/fila_mensagem.h" />
-		<Unit filename="include/memoria_compartilhada.h" />
-		<Unit filename="include/pagina.h" />
-		<Unit filename="include/semaforo.h" />
-		<Unit filename="include/shutdown.h" />
-		<Unit filename="include/substituidor.h" />
-		<Unit filename="include/utils.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="src/alocador.cpp" />
-		<Unit filename="src/fila_mensagem.cpp" />
-		<Unit filename="src/memoria_compartilhada.cpp" />
-		<Unit filename="src/pagina.cpp" />
-		<Unit filename="src/semaforo.cpp" />
-		<Unit filename="src/shutdown.cpp" />
-		<Unit filename="src/substituidor.cpp" />
-		<Unit filename="src/utils.cpp" />
+		<Unit filename="../include/alocador.h" />
+		<Unit filename="../include/fila_mensagem.h" />
+		<Unit filename="../include/memoria_compartilhada.h" />
+		<Unit filename="../include/pagina.h" />
+		<Unit filename="../include/processo_usr.h" />
+		<Unit filename="../include/semaforo.h" />
+		<Unit filename="../include/shutdown.h" />
+		<Unit filename="../include/substituidor.h" />
+		<Unit filename="../include/utils.h" />
+		<Unit filename="../main.cpp" />
+		<Unit filename="../src/alocador.cpp" />
+		<Unit filename="../src/fila_mensagem.cpp" />
+		<Unit filename="../src/memoria_compartilhada.cpp" />
+		<Unit filename="../src/pagina.cpp" />
+		<Unit filename="../src/processo_usr.cpp" />
+		<Unit filename="../src/semaforo.cpp" />
+		<Unit filename="../src/shutdown.cpp" />
+		<Unit filename="../src/substituidor.cpp" />
+		<Unit filename="../src/utils.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
