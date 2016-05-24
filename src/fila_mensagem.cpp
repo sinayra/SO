@@ -27,7 +27,7 @@ void enviaMsg(int id, mensagem msg, long type){
 
     if(type != 1){
         if(msg.pagina >= 0)
-            msg.mtype = ((msg.pagina + 1) * 2);
+            msg.mtype = ((msg.processo + 1) * 2);
         else
             msg.mtype = 1;
     }

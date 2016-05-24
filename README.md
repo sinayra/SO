@@ -28,12 +28,14 @@ Sinayra Pascoal Cotts Moreira 		10/0020666
 		3- Quantidade de páginas ocupadas é compartilhada entre os processos alocador e substituidor
 
 	Fila de mensagem:
-		1- Há duas filas para os processos de usuário e alocador: uma para o procesos de usuário requisitar a referência de página e outra para o alocador responder que a página foi referenciada
+		1- Há duas filas para os processos de usuário e alocador: uma para o processos de usuário requisitar a referência de página e outra para o alocador responder que a página foi referenciada
 		2- Há uma fila de mensagem para o alocador e shutdown: o alocador repassa ao shutdown a quantidade de page fault de cada processo
 
 	Semáforo:
 		1- Se uma frame estiver sendo liberada pelo substituidor, o alocador deve esperar o término de execução do algoritmo de substituição para poder referenciar nova página. Se o alocador inicia execução de referenciação de uma página, o substituidor espera até o término desta referenciação para poder verificar o estado da tabela, impedindo que o substituir libere uma frame que o alocador está referenciando.
 
+	Sinal:
+		1- O processo shutdown envia um sinal para alocador e substituidor para que estes encerrem suas execuções.
 
 
 *******************************************

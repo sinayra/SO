@@ -23,6 +23,7 @@ void processo(int proc){
 
     for(vector<string>::iterator it = paginas.begin(); it != paginas.end(); it++){
         string::size_type sz;
+        do{
         int pag = stoi(*it, &sz);
 
         msg_s.alocado = false;
@@ -30,10 +31,11 @@ void processo(int proc){
         msg_s.pagina = pag;
 
         enviaMsg(req, msg_s);
-        //cout << "Processo " << proc << ": referencia_pagina(" << pag << ")" << endl;
+        cout << "Processo " << proc << ": referencia_pagina(" << pag << ")" << endl;
 
-        msg_r = recebeMsg(resp, (pag + 1) * 2); //numero magico para recuperar mensagem
-        //cout <<"Alocado: Processo " << msg_r.processo << "\t pagina " << msg_r.pagina << endl;
+        msg_r = recebeMsg(resp, (proc + 1) * 2); //numero magico para recuperar mensagem
+        cout <<"Alocado: Processo " << msg_r.processo << "\t pagina " << msg_r.pagina << endl;
+        }while(!msg_r.alocado);
 
     }
     //cout << endl << "Processo " << proc << " terminou execucao" << endl << endl;
