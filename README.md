@@ -14,7 +14,7 @@ Sinayra Pascoal Cotts Moreira 		10/0020666
 
 	Alocador: Recebe do processo de usuário uma requisição de alocação de página. O alocador então inicializa contador de page faults deste processo de usuário e verifica se a página já está referenciada ou não. Se já estiver referenciada, atualiza o tempo de referência. Se não estiver referenciada, verifica-se o estado da memória: se estiver cheia, executa algoritmo de substituição do processo substituidor. Após isso, aumenta-se o contador de page fault e insere a referência da página solicitada do processo que a requisitou. Por fim, envia uma mensagem ao processo que requisitou a alocação uma mensagem de sucesso.
 
-	Substituidor: Verifica de 0,5s em 0,5s o estado da memória. Se o número de frames livres for maior ou igual que o parâmetro MAX_OCUPACAO, executa algoritmo de substituição. Este algoritmo leva em conta o tempo de referência das páginas, retirando da memória os frames que foram referenciados no passado mais distante.
+	Substituidor: Verifica de 1ms em 1ms o estado da memória. Se o número de frames livres for maior ou igual que o parâmetro MAX_OCUPACAO, executa algoritmo de substituição. Este algoritmo leva em conta o tempo de referência das páginas, retirando da memória os frames que foram referenciados no passado mais distante.
 
 
 *******************************************

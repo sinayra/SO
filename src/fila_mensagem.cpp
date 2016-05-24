@@ -25,12 +25,7 @@ void destroiMsg(int id){
 void enviaMsg(int id, mensagem msg, long type){
     int tamanho, erro, tentativa = 0;
 
-    if(type != 1){
-        if(msg.pagina >= 0)
-            msg.mtype = ((msg.processo + 1) * 2);
-        else
-            msg.mtype = 1;
-    }
+    msg.mtype = type;
 
     tamanho = sizeof(mensagem) - sizeof(long);
 

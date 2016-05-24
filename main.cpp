@@ -98,6 +98,7 @@ int main(){
 
     if(pid > 0){ //processo pai vai executar
         int status, p;
+
         sleep(1); //Garante que todos os processos inicializarao
         do{
             p = waitpid(-1, &status, WNOHANG);

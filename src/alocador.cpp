@@ -10,18 +10,23 @@ extern frame *tab;
 
 void alocador(){
     mensagem msg_r, msg_s;
+    map<int, int>::iterator it;
 
     signal(SIGUSR1, encerra);
 
     while(1){
         msg_r = recebeMsg(req);
 
-        referencia_pagina(msg_r.pagina, msg_r.processo);
+        it = proc.begin();
+        proc.insert(it, pair<int, int>(msg_r.processo, 0)); //se ja tiver esse processo, nao insere
+
+        proc_atual = msg_r.processo;  //determina que o processo atual e o da mensagem recebida
+        aloca(msg_r.pagina); //realiza operacao de alocar
 
         msg_s = msg_r;
         msg_s.alocado = true;
-        enviaMsg(resp, msg_s, 2);
-
+        enviaMsg(resp, msg_s, (msg_s.processo + 1)*2);
+        //cout << "Alocador enviou mensagem" << endl;
     }
 }
 
@@ -49,14 +54,4 @@ void aloca(int i){
     else
             preencheFrame(index, i);
     V(sem);
-}
-
-void referencia_pagina(int i, int processo){
-
-    map<int, int>::iterator it = proc.begin();
-    proc_atual = processo;
-
-    proc.insert(it, pair<int, int>(processo, 0)); //se ja tiver esse processo, nao insere
-
-    aloca(i);
 }
