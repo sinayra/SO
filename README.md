@@ -43,7 +43,7 @@ Sinayra Pascoal Cotts Moreira 		10/0020666
 *Para executar este trabalho:
 *
 *******************************************
-	O trabalho foi feito no Ubuntu 15.10, versão 5.2.1 20151010 do gcc. O próprio programa principal encarrega-se de criar os processos e colocá-los em execução.
+	O trabalho foi feito no Ubuntu 15.10, versão 5.2.1 20151010 do gcc, testado em OpenSUSE 13.2 com versão do gcc 4.8.3 20140627. O próprio programa principal encarrega-se de criar os processos e colocá-los em execução.
 
 	Para compilar, execute o comando
 		make
