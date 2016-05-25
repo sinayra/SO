@@ -101,15 +101,13 @@ int main(){
 
         sleep(1); //Garante que todos os processos inicializarao
         do{
-            p = waitpid(-1, &status, WNOHANG);
+            p = wait(&status);
 
             if(p == -1){
                 cout << "Erro ao esperar morte do filho " << p << endl;
                 exit(EXIT_FAILURE);
             }
-            if(!WIFEXITED(status))
-                sleep(1);
-            else
+            else if (p > 0)
                 qtd--;
 
             if(qtd == 0){
